@@ -13,7 +13,7 @@ node('php'){
     }
   
     stage ('config') {
-        paralell(
+        parallel(
             'config cache': {
                     sh 'php artisan config:cache'
                 },
