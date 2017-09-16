@@ -9,10 +9,20 @@ node('php'){
     }
     
     stage('Build'){
-        sh 'composer install --prefer-dist --no-dev --ignore-platform-reqs'
-        sh 'php artisan config:cache'
-        // sh 'php artisan route:cache'
+        sh 'composer install --prefer-dist --no-dev --ignore-platform-reqs'             
     }
+  
+    stage ('config') {
+        paralell(
+            'config cache': {
+                    sh 'php artisan config:cache'
+                },
+            'config cache': {
+                    sh 'php artisan route:cache'
+                }
+            
+            )    
+    }   
     
     stage('Docker Build') {
         sh 'docker build -t fernandorozante2/todoapi:$BUILD_NUMBER .'
