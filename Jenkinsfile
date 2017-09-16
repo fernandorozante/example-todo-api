@@ -17,7 +17,7 @@ node('php'){
             'config cache': {
                     sh 'php artisan config:cache'
                 },
-            'config cache': {
+            'config artisan': {
                     sh 'php artisan'
                 }
             )    
